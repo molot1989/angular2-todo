@@ -3,15 +3,19 @@
     <h1> {{title}} </h1>
 </header>
 <main>
+    <form class="todo-form" (ngSubmit)="create(); todoForm.reset()" #todoForm="ngForm">
+        <input type="text" name="title" [(ngModel)]="newTodoTitle" placeholder="add todo" required>
+        <button tupe="submit"[disabled]="todoForm.invalid">Add</button>
+    </form>
     <section class="todo-list" *ngIf="todos.length">
         <div class="todo-item" *ngFor="let todo of todos" [ngClass]="{'completed' : todo.completed}">
-            <button class="checkbox icon">
+            <button class="checkbox icon" (click)="toggle(todo)">
                 <i class="material-icons">{{todo.completed ? 'check_box' : 'check_box_outline_blank'}}</i>
             </button>
             <span class="title"> {{todo.title}}</span>
             <div class="actions">
                 <button class="delete icon">
-                    <i class="material-icons">delete</i>
+                    <i class="material-icons" (click)="delete(todo)">delete</i>
                 </button>
             </div>
         </div>
